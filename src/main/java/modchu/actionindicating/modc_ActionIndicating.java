@@ -1,18 +1,15 @@
 package modchu.actionindicating;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.List;
 
 import modchu.lib.Modchu_Config;
+import modchu.lib.Modchu_Debug;
 import modchu.lib.Modchu_Main;
 import modchu.lib.Modchu_Reflect;
 import modchu.lib.characteristic.Modchu_AS;
+import modchu.lib.characteristic.Modchu_CastHelper;
 import modchu.lib.characteristic.Modchu_Item;
-import modchu.lib.characteristic.recompileonly.Modchu_CastHelper;
-import modchu.ridingindicatingrod.ItemRidingIndicatingRod;
 
 public class modc_ActionIndicating {
 
@@ -21,34 +18,36 @@ public class modc_ActionIndicating {
 	public static boolean useAddChatMessage = true;
 	public static boolean usePlaySound = true;
 
+	public static final String versionString = "3";
+	public Modchu_Item itemActionIndicatingRod;
+	public Modchu_Item itemActionIndicatingWhistle;
 	public static Object actionIndicatingRod;
 	public static Object actionIndicatingWhistle;
 	private static boolean DebugMessage = true;
 	private static modc_ActionIndicating modc_ActionIndicating;
-	private static File cfgdir;
 	private static File mainCfgfile;
 	public static String actionIndicatingRodItemName;
 	public static String actionIndicatingWhistleItemName;
 	private String packageName;
 
 	public String getVersion() {
-		return "2";
+		return versionString;
 	}
 
 	public void load() {
 		modc_ActionIndicating = this;
-		cfgdir = new File(Modchu_AS.getFile(Modchu_AS.minecraftMcDataDir), "/config/");
-		mainCfgfile = new File(cfgdir, ("ActionIndicating.cfg"));
+		mainCfgfile = new File(Modchu_Main.cfgdir, ("ActionIndicating.cfg"));
 		loadcfg();
 		if (actionIndicatingRodID > 0) {
 			actionIndicatingRodItemName = "ActionIndicatingRod";
-			Object item = new Modchu_Item(ItemActionIndicatingRod.class, actionIndicatingRodID - 256);
+			itemActionIndicatingRod = new Modchu_Item(ItemActionIndicatingRod.class, actionIndicatingRodID - 256);
 			//Modchu_Debug.mDebug("modc_ActionIndicating load() item="+item);
-			item = Modchu_AS.get(Modchu_AS.itemSetUnlocalizedName, item, actionIndicatingRodItemName);
-			item = Modchu_AS.get(Modchu_AS.itemSetCreativeTab, item, Modchu_AS.get(Modchu_AS.creativeTabsTabMaterials));
-			item = Modchu_AS.get(Modchu_AS.itemSetTextureName, item, actionIndicatingRodItemName);
-			Modchu_Main.registerItem(item, actionIndicatingRodItemName);
-			actionIndicatingRod = (Modchu_Item) item;
+			itemActionIndicatingRod = (Modchu_Item) Modchu_AS.get(Modchu_AS.itemSetUnlocalizedName, itemActionIndicatingRod, actionIndicatingRodItemName);
+			itemActionIndicatingRod = (Modchu_Item) Modchu_AS.get(Modchu_AS.itemSetCreativeTab, itemActionIndicatingRod, Modchu_AS.get(Modchu_AS.creativeTabsTabMaterials));
+			itemActionIndicatingRod = (Modchu_Item) Modchu_AS.get(Modchu_AS.itemSetTextureName, itemActionIndicatingRod, actionIndicatingRodItemName);
+			Modchu_Main.languageRegistryAddName(itemActionIndicatingRod, actionIndicatingRodItemName.toLowerCase());
+			Modchu_Main.registerItem(itemActionIndicatingRod, actionIndicatingRodItemName.toLowerCase());
+			actionIndicatingRod = (Modchu_Item) itemActionIndicatingRod;
 			//Modchu_Debug.mDebug("modc_ActionIndicating load() fishing_rod="+Modchu_AS.get(Modchu_AS.getItem, "fishing_rod"));
 			//Modchu_Debug.mDebug("modc_ActionIndicating load() sugar="+Modchu_AS.get(Modchu_AS.getItem, "sugar"));
 			//Modchu_Debug.mDebug("modc_ActionIndicating load() ItemStack="+Modchu_Reflect.newInstance("ItemStack", new Class[]{ Modchu_Reflect.loadClass("Item"), int.class }, new Object[]{ actionIndicatingRod, 1 }));
@@ -58,13 +57,14 @@ public class modc_ActionIndicating {
 		}
 		if (actionIndicatingWhistleID > 0) {
 			actionIndicatingWhistleItemName = "ActionIndicatingWhistle";
-			Object item = new Modchu_Item(ItemActionIndicatingWhistle.class, actionIndicatingWhistleID - 256);
+			itemActionIndicatingWhistle = new Modchu_Item(ItemActionIndicatingWhistle.class, actionIndicatingWhistleID - 256);
 			//Modchu_Debug.mDebug("modc_ActionIndicating load() item="+item);
-			item = Modchu_AS.get(Modchu_AS.itemSetUnlocalizedName, item, actionIndicatingWhistleItemName);
-			item = Modchu_AS.get(Modchu_AS.itemSetCreativeTab, item, Modchu_AS.get(Modchu_AS.creativeTabsTabMaterials));
-			item = Modchu_AS.get(Modchu_AS.itemSetTextureName, item, actionIndicatingWhistleItemName);
-			Modchu_Main.registerItem(item, actionIndicatingWhistleItemName);
-			actionIndicatingWhistle = (Modchu_Item) item;
+			itemActionIndicatingWhistle = (Modchu_Item) Modchu_AS.get(Modchu_AS.itemSetUnlocalizedName, itemActionIndicatingWhistle, actionIndicatingWhistleItemName);
+			itemActionIndicatingWhistle = (Modchu_Item) Modchu_AS.get(Modchu_AS.itemSetCreativeTab, itemActionIndicatingWhistle, Modchu_AS.get(Modchu_AS.creativeTabsTabMaterials));
+			itemActionIndicatingWhistle = (Modchu_Item) Modchu_AS.get(Modchu_AS.itemSetTextureName, itemActionIndicatingWhistle, actionIndicatingWhistleItemName);
+			Modchu_Main.languageRegistryAddName(itemActionIndicatingWhistle, actionIndicatingWhistleItemName.toLowerCase());
+			Modchu_Main.registerItem(itemActionIndicatingWhistle, actionIndicatingWhistleItemName.toLowerCase());
+			actionIndicatingWhistle = (Modchu_Item) itemActionIndicatingWhistle;
 			//Modchu_Debug.mDebug("modc_ActionIndicating load() stick="+Modchu_AS.get(Modchu_AS.getItem, "stick"));
 			//Modchu_Debug.mDebug("modc_ActionIndicating load() sugar="+Modchu_AS.get(Modchu_AS.getItem, "sugar"));
 			//Modchu_Debug.mDebug("modc_ActionIndicating load() ItemStack="+Modchu_Reflect.newInstance("ItemStack", new Class[]{ Modchu_Reflect.loadClass("Item"), int.class }, new Object[]{ actionIndicatingWhistle, 1 }));
@@ -79,9 +79,16 @@ public class modc_ActionIndicating {
 		return true;
 	}
 
+	public void init(Object event) {
+		//Modchu_Debug.lDebug("modc_ActionIndicating init");
+		if (itemActionIndicatingRod != null) Modchu_Main.itemModelMesherRegister(itemActionIndicatingRod, 0, "modchulib:"+actionIndicatingRodItemName.toLowerCase(), "inventory");
+		if (itemActionIndicatingWhistle != null) Modchu_Main.itemModelMesherRegister(itemActionIndicatingWhistle, 0, "modchulib:"+actionIndicatingWhistleItemName.toLowerCase(), "inventory");
+		//Modchu_Debug.lDebug("modc_ActionIndicating init end.");
+	}
+
 	public static void loadcfg() {
 		// cfg読み込み
-		if (cfgdir.exists()) {
+		if (Modchu_Main.cfgdir.exists()) {
 			ArrayList list = new ArrayList();
 			if (!mainCfgfile.exists()) {
 				// cfgファイルが無い = 新規作成

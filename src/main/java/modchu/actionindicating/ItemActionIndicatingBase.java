@@ -1,6 +1,6 @@
 package modchu.actionindicating;
 
-import modchu.lib.Modchu_ItemBasis;
+import modchu.lib.Modchu_ItemMasterBasis;
 import modchu.lib.Modchu_Reflect;
 import modchu.lib.characteristic.Modchu_AS;
 import modchu.lib.characteristic.Modchu_Item;
@@ -8,7 +8,7 @@ import modchu.model.ModchuModel_Main;
 import modchu.model.ModchuModel_ModelDataBase;
 import modchu.model.ModchuModel_ModelDataMaster;
 
-public abstract class ItemActionIndicatingBase extends Modchu_ItemBasis {
+public abstract class ItemActionIndicatingBase extends Modchu_ItemMasterBasis {
 	protected boolean selectLock;
 	protected int actionCount = 0;
 	protected final int maxActionCount = 30;
@@ -28,7 +28,7 @@ public abstract class ItemActionIndicatingBase extends Modchu_ItemBasis {
 	}
 
 	@Override
-	public Object onEaten(Object itemstack, Object world, Object entityplayer) {
+	public Object onItemUseFinish(Object itemstack, Object world, Object entityplayer) {
 		return itemstack;
 	}
 

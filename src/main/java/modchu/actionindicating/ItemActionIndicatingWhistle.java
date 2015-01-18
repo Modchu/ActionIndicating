@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import modchu.lib.Modchu_Main;
 import modchu.lib.characteristic.Modchu_AS;
 import modchu.lib.characteristic.Modchu_Item;
-import net.minecraft.client.gui.GuiScreen;
 
 public class ItemActionIndicatingWhistle extends ItemActionIndicatingBase {
 
