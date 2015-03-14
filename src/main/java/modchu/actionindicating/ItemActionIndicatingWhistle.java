@@ -1,23 +1,22 @@
 package modchu.actionindicating;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import modchu.lib.Modchu_Main;
-import modchu.lib.characteristic.Modchu_AS;
-import modchu.lib.characteristic.Modchu_Item;
+import modchu.lib.Modchu_AS;
 
 public class ItemActionIndicatingWhistle extends ItemActionIndicatingBase {
 
     private static ArrayList entityList = new ArrayList();
 
-	public ItemActionIndicatingWhistle(Modchu_Item modchu_Item, Object... o) {
-		super(modchu_Item, (Object[]) o);
+	public ItemActionIndicatingWhistle(HashMap<String, Object> map) {
+		super(map);
 		setMaxDamage(256);
 	}
 
 	@Override
 	public boolean itemInteractionForEntity(Object itemStack, Object entityPlayer, Object entityLivingBase) {
-		if(entityLivingBase != null) ;else return true;
+		if(entityLivingBase != null); else return true;
 		if (Modchu_AS.getBoolean(Modchu_AS.worldIsRemote, entityLivingBase)) {
 			//modc_ActionIndicating.mDebug("isRemote");
 			return true;

@@ -1,25 +1,30 @@
 package modchu.actionindicating;
 
-import modchu.lib.characteristic.Modchu_AS;
-import modchu.lib.characteristic.Modchu_Item;
+import java.util.HashMap;
+
+import modchu.lib.Modchu_AS;
+import modchu.lib.Modchu_Debug;
+import modchu.lib.Modchu_Main;
 
 public class ItemActionIndicatingRod extends ItemActionIndicatingBase {
 
-	public ItemActionIndicatingRod(Modchu_Item modchu_Item, Object... o) {
-		super(modchu_Item, (Object[]) o);
+	public ItemActionIndicatingRod(HashMap<String, Object> map) {
+		super(map);
 		setMaxDamage(512);
 	}
 
 	@Override
 	public boolean itemInteractionForEntity(Object itemStack, Object entityPlayer, Object entityLivingBase) {
 		if (Modchu_AS.getBoolean(Modchu_AS.worldIsRemote, entityLivingBase)) {
+			//Modchu_Debug.mDebug("setEntity isRemote entityLivingBase="+entityLivingBase);
+			//if (Modchu_Main.getMinecraftVersion() > 169) actionSetting(entityLivingBase, actionCount);
 			return true;
 		}
 		if (Modchu_AS.getBoolean(Modchu_AS.entityIsDead, entityLivingBase)) {
 			if (modc_ActionIndicating.useAddChatMessage) Modchu_AS.set(Modchu_AS.printChatMessage, "ActionIndicatingRod setEntity.isDead");
 			return true;
 		}
-		//modc_ActionIndicating.mDebug("setEntity entity.getClass()="+entity.getClass());
+		//Modchu_Debug.mDebug("setEntity entityLivingBase="+entityLivingBase);
 		actionSetting(entityLivingBase, actionCount);
 		Modchu_AS.set(Modchu_AS.itemStackDamageItem, itemStack, 1, entityPlayer);
 		return true;
