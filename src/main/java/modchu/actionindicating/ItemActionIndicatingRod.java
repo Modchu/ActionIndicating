@@ -3,8 +3,6 @@ package modchu.actionindicating;
 import java.util.HashMap;
 
 import modchu.lib.Modchu_AS;
-import modchu.lib.Modchu_Debug;
-import modchu.lib.Modchu_Main;
 
 public class ItemActionIndicatingRod extends ItemActionIndicatingBase {
 

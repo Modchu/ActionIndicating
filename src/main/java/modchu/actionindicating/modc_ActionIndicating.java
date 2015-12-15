@@ -6,9 +6,18 @@ import java.util.ArrayList;
 import modchu.lib.Modchu_AS;
 import modchu.lib.Modchu_CastHelper;
 import modchu.lib.Modchu_Config;
+import modchu.lib.Modchu_Debug;
+import modchu.lib.Modchu_EntityCapsHelper;
+import modchu.lib.Modchu_GlStateManager;
 import modchu.lib.Modchu_IItem;
 import modchu.lib.Modchu_Main;
 import modchu.lib.Modchu_Reflect;
+import modchu.lib.Modchu_RenderEngine;
+import modchu.model.ModchuModel_IEntityCaps;
+import modchu.model.ModchuModel_Main;
+import modchu.model.ModchuModel_ModelDataMaster;
+import modchu.model.ModchuModel_ModelRenderer;
+import modchu.model.multimodel.base.MultiModelBaseBiped;
 
 public class modc_ActionIndicating {
 
@@ -17,17 +26,16 @@ public class modc_ActionIndicating {
 	public static boolean useAddChatMessage = true;
 	public static boolean usePlaySound = true;
 
-	public static final String versionString = "4";
+	public static final String versionString = "4a";
 	public Modchu_IItem itemActionIndicatingRod;
 	public Modchu_IItem itemActionIndicatingWhistle;
 	public static Object actionIndicatingRod;
 	public static Object actionIndicatingWhistle;
-	private static boolean DebugMessage = true;
+	private static boolean debugMessage = true;
 	private static modc_ActionIndicating modc_ActionIndicating;
 	private static File mainCfgfile;
 	public static String actionIndicatingRodItemName;
 	public static String actionIndicatingWhistleItemName;
-	private String packageName;
 
 	public String getVersion() {
 		return versionString;
@@ -37,7 +45,9 @@ public class modc_ActionIndicating {
 		modc_ActionIndicating = this;
 		mainCfgfile = new File(Modchu_Main.cfgdir, ("ActionIndicating.cfg"));
 		loadcfg();
-		if (actionIndicatingRodID > 0) {
+		boolean flag = Modchu_Main.getMinecraftVersion() > 169;
+		if (flag
+				| actionIndicatingRodID > 0) {
 			actionIndicatingRodItemName = "ActionIndicatingRod";
 			itemActionIndicatingRod = (Modchu_IItem) Modchu_Main.newModchuCharacteristicObject("Modchu_Item", ItemActionIndicatingRod.class, actionIndicatingRodID - 256);
 			//Modchu_Debug.mDebug("modc_ActionIndicating load() item="+item);
@@ -54,7 +64,8 @@ public class modc_ActionIndicating {
 					new Object[] { " Y", "X ", Character.valueOf('X'),
 				Modchu_AS.get(Modchu_AS.getItem, "fishing_rod"), Character.valueOf('Y'), Modchu_AS.get(Modchu_AS.getItem, "sugar") });
 		}
-		if (actionIndicatingWhistleID > 0) {
+		if (flag
+				| actionIndicatingWhistleID > 0) {
 			actionIndicatingWhistleItemName = "ActionIndicatingWhistle";
 			itemActionIndicatingWhistle = (Modchu_IItem) Modchu_Main.newModchuCharacteristicObject("Modchu_Item", ItemActionIndicatingWhistle.class, actionIndicatingWhistleID - 256);
 			//Modchu_Debug.mDebug("modc_ActionIndicating load() item="+item);
@@ -139,4 +150,5 @@ public class modc_ActionIndicating {
 		if (actionIndicatingRodID > 32000) actionIndicatingRodID = 32000;
 		if (actionIndicatingWhistleID > 32000) actionIndicatingWhistleID = 32000;
 	}
+
 }
