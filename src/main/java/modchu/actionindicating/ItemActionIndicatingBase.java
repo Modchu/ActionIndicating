@@ -46,4 +46,10 @@ public abstract class ItemActionIndicatingBase extends Modchu_ItemMasterBasis {
 		Modchu_AS.set(Modchu_AS.entityLivingBaseHeal, entityLivingBase, 1.0F);
 		return Modchu_Reflect.loadClass("EntityPlayer").isInstance(entityLivingBase2) ? itemInteractionForEntity(itemStack, entityLivingBase2, entityLivingBase) : itemInteractionForEntity(itemStack, null, entityLivingBase);
 	}
+
+	@Override
+	public boolean itemInteractionForEntity(Object itemStack, Object entityPlayer, Object entityLivingBase) {
+		return itemInteractionForEntity(itemStack, entityPlayer, entityLivingBase, null);
+	}
+
 }

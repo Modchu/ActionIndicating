@@ -3,6 +3,8 @@ package modchu.actionindicating;
 import java.util.HashMap;
 
 import modchu.lib.Modchu_AS;
+import modchu.lib.Modchu_Main;
+import modchu.lib.Modchu_Reflect;
 
 public class ItemActionIndicatingRod extends ItemActionIndicatingBase {
 
@@ -12,7 +14,7 @@ public class ItemActionIndicatingRod extends ItemActionIndicatingBase {
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(Object itemStack, Object entityPlayer, Object entityLivingBase) {
+	public boolean itemInteractionForEntity(Object itemStack, Object entityPlayer, Object entityLivingBase, Object enumHand) {
 		if (Modchu_AS.getBoolean(Modchu_AS.worldIsRemote, entityLivingBase)) {
 			//Modchu_Debug.mDebug("setEntity isRemote entityLivingBase="+entityLivingBase);
 			//if (Modchu_Main.getMinecraftVersion() > 169) actionSetting(entityLivingBase, actionCount);
@@ -30,9 +32,17 @@ public class ItemActionIndicatingRod extends ItemActionIndicatingBase {
 
 	@Override
 	public Object onItemRightClick(Object itemStack, Object world, Object entityPlayer) {
-		Modchu_AS.set(Modchu_AS.entityLivingBaseSwingItem, entityPlayer);
+		return onItemRightClick(itemStack, world, entityPlayer, null);
+	}
+
+	@Override
+	public Object onItemRightClick(Object itemStack, Object world, Object entityPlayer, Object enumHand) {
+		Modchu_AS.set(Modchu_AS.entityLivingBaseSwingItem, entityPlayer, enumHand);
+		int version = Modchu_Main.getMinecraftVersion();
+		boolean flag = version > 189;
+		Object actionResult = flag ? Modchu_Reflect.newInstance("ActionResult", new Class[]{ Modchu_Reflect.loadClass("EnumActionResult"), Object.class }, new Object[]{ Modchu_AS.getEnum("EnumActionResult", "SUCCESS"), itemStack }) : itemStack;
 		if (Modchu_AS.getBoolean(Modchu_AS.worldIsRemote, entityPlayer)) {
-			return itemStack;
+			return actionResult;
 		}
 		if (Modchu_AS.getBoolean(Modchu_AS.isCtrlKeyDown)) {
 			selectLock = !selectLock;
@@ -54,11 +64,14 @@ public class ItemActionIndicatingRod extends ItemActionIndicatingBase {
 				if (modc_ActionIndicating.useAddChatMessage) Modchu_AS.set(Modchu_AS.printChatMessage, "ActionIndicatingRod selectLock.");
 			}
 		}
-		return itemStack;
+		return actionResult;
 	}
 
 	@Override
 	public void registerIcons(Object iIconRegister) {
-		Modchu_AS.set(Modchu_AS.itemItemIcon, base, Modchu_AS.get(Modchu_AS.iIconRegisterRegisterIcon, iIconRegister, modc_ActionIndicating.actionIndicatingRodItemName));
+		int version = Modchu_Main.getMinecraftVersion();
+		Modchu_Main.registerIcons(base, iIconRegister,
+						version < 160
+						&& Modchu_Main.isForge ? "modchulib:"+modc_ActionIndicating.actionIndicatingRodItemName : modc_ActionIndicating.actionIndicatingRodItemName);
 	}
 }

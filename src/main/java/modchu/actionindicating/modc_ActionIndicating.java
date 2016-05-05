@@ -26,7 +26,7 @@ public class modc_ActionIndicating {
 	public static boolean useAddChatMessage = true;
 	public static boolean usePlaySound = true;
 
-	public static final String versionString = "5";
+	public static final String versionString = "6a";
 	public Modchu_IItem itemActionIndicatingRod;
 	public Modchu_IItem itemActionIndicatingWhistle;
 	public static Object actionIndicatingRod;
