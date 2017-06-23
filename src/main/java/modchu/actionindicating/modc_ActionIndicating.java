@@ -26,7 +26,7 @@ public class modc_ActionIndicating {
 	public static boolean useAddChatMessage = true;
 	public static boolean usePlaySound = true;
 
-	public static final String versionString = "6b";
+	public static final String versionString = "6d";
 	public Modchu_IItem itemActionIndicatingRod;
 	public Modchu_IItem itemActionIndicatingWhistle;
 	public static Object actionIndicatingRod;
@@ -55,12 +55,13 @@ public class modc_ActionIndicating {
 			itemActionIndicatingRod = (Modchu_IItem) Modchu_AS.get(Modchu_AS.itemSetCreativeTab, itemActionIndicatingRod, Modchu_AS.get(Modchu_AS.creativeTabsTabMaterials));
 			itemActionIndicatingRod = (Modchu_IItem) Modchu_AS.get(Modchu_AS.itemSetTextureName, itemActionIndicatingRod, actionIndicatingRodItemName);
 			Modchu_Main.languageRegistryAddName(itemActionIndicatingRod, actionIndicatingRodItemName.toLowerCase());
+			Modchu_Main.languageRegistryAddName(itemActionIndicatingRod, "ja_JP", "アクション指示棒");
 			Modchu_Main.registerItem(itemActionIndicatingRod, actionIndicatingRodItemName.toLowerCase());
 			actionIndicatingRod = (Modchu_IItem) itemActionIndicatingRod;
 			//Modchu_Debug.mDebug("modc_ActionIndicating load() fishing_rod="+Modchu_AS.get(Modchu_AS.getItem, "fishing_rod"));
 			//Modchu_Debug.mDebug("modc_ActionIndicating load() sugar="+Modchu_AS.get(Modchu_AS.getItem, "sugar"));
 			//Modchu_Debug.mDebug("modc_ActionIndicating load() ItemStack="+Modchu_Reflect.newInstance("ItemStack", new Class[]{ Modchu_Reflect.loadClass("Item"), int.class }, new Object[]{ actionIndicatingRod, 1 }));
-			Modchu_Main.addRecipe(Modchu_Reflect.newInstance("ItemStack", new Class[]{ Modchu_Reflect.loadClass("Item"), int.class }, new Object[]{ actionIndicatingRod, 1 }),
+			Modchu_Main.addRecipe(Modchu_Main.newResourceLocation(actionIndicatingRodItemName.toLowerCase()), Modchu_Reflect.newInstance("ItemStack", new Class[]{ Modchu_Reflect.loadClass("Item"), int.class }, new Object[]{ actionIndicatingRod, 1 }),
 					new Object[] { " Y", "X ", Character.valueOf('X'),
 				Modchu_AS.get(Modchu_AS.getItem, "fishing_rod"), Character.valueOf('Y'), Modchu_AS.get(Modchu_AS.getItem, "sugar") });
 		}
@@ -73,12 +74,13 @@ public class modc_ActionIndicating {
 			itemActionIndicatingWhistle = (Modchu_IItem) Modchu_AS.get(Modchu_AS.itemSetCreativeTab, itemActionIndicatingWhistle, Modchu_AS.get(Modchu_AS.creativeTabsTabMaterials));
 			itemActionIndicatingWhistle = (Modchu_IItem) Modchu_AS.get(Modchu_AS.itemSetTextureName, itemActionIndicatingWhistle, actionIndicatingWhistleItemName);
 			Modchu_Main.languageRegistryAddName(itemActionIndicatingWhistle, actionIndicatingWhistleItemName.toLowerCase());
+			Modchu_Main.languageRegistryAddName(itemActionIndicatingWhistle, "ja_JP", "アクション指示笛");
 			Modchu_Main.registerItem(itemActionIndicatingWhistle, actionIndicatingWhistleItemName.toLowerCase());
 			actionIndicatingWhistle = (Modchu_IItem) itemActionIndicatingWhistle;
 			//Modchu_Debug.mDebug("modc_ActionIndicating load() stick="+Modchu_AS.get(Modchu_AS.getItem, "stick"));
 			//Modchu_Debug.mDebug("modc_ActionIndicating load() sugar="+Modchu_AS.get(Modchu_AS.getItem, "sugar"));
 			//Modchu_Debug.mDebug("modc_ActionIndicating load() ItemStack="+Modchu_Reflect.newInstance("ItemStack", new Class[]{ Modchu_Reflect.loadClass("Item"), int.class }, new Object[]{ actionIndicatingWhistle, 1 }));
-			Modchu_Main.addRecipe(Modchu_Reflect.newInstance("ItemStack", new Class[]{ Modchu_Reflect.loadClass("Item"), int.class }, new Object[]{ actionIndicatingWhistle, 1 }),
+			Modchu_Main.addRecipe(Modchu_Main.newResourceLocation(actionIndicatingWhistleItemName.toLowerCase()), Modchu_Reflect.newInstance("ItemStack", new Class[]{ Modchu_Reflect.loadClass("Item"), int.class }, new Object[]{ actionIndicatingWhistle, 1 }),
 					new Object[] { "XY", "YY", Character.valueOf('X'),
 				Modchu_AS.get(Modchu_AS.getItem, "stick"), Character.valueOf('Y'), Modchu_AS.get(Modchu_AS.getItem, "sugar") });
 		}
