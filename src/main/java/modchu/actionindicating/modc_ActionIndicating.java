@@ -2,22 +2,14 @@ package modchu.actionindicating;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 
 import modchu.lib.Modchu_AS;
 import modchu.lib.Modchu_CastHelper;
 import modchu.lib.Modchu_Config;
-import modchu.lib.Modchu_Debug;
-import modchu.lib.Modchu_EntityCapsHelper;
-import modchu.lib.Modchu_GlStateManager;
 import modchu.lib.Modchu_IItem;
 import modchu.lib.Modchu_Main;
 import modchu.lib.Modchu_Reflect;
-import modchu.lib.Modchu_RenderEngine;
-import modchu.model.ModchuModel_IEntityCaps;
-import modchu.model.ModchuModel_Main;
-import modchu.model.ModchuModel_ModelDataMaster;
-import modchu.model.ModchuModel_ModelRenderer;
-import modchu.model.multimodel.base.MultiModelBaseBiped;
 
 public class modc_ActionIndicating {
 
@@ -26,7 +18,7 @@ public class modc_ActionIndicating {
 	public static boolean useAddChatMessage = true;
 	public static boolean usePlaySound = true;
 
-	public static final String versionString = "6d";
+	public static final String versionString = "7";
 	public Modchu_IItem itemActionIndicatingRod;
 	public Modchu_IItem itemActionIndicatingWhistle;
 	public static Object actionIndicatingRod;
@@ -117,11 +109,12 @@ public class modc_ActionIndicating {
 				Modchu_Config.writerConfig(mainCfgfile, list);
 			} else {
 				// cfgファイルがある
-				useAddChatMessage = Modchu_CastHelper.Boolean(Modchu_Config.loadConfig(mainCfgfile, "useAddChatMessage", useAddChatMessage));
-				usePlaySound = Modchu_CastHelper.Boolean(Modchu_Config.loadConfig(mainCfgfile, "usePlaySound", usePlaySound));
+				ConcurrentHashMap<String, String> map = Modchu_Config.loadAllConfig(mainCfgfile);
+				useAddChatMessage = map.containsKey("useAddChatMessage") ? Modchu_CastHelper.Boolean(map.get("useAddChatMessage")) : useAddChatMessage;
+				usePlaySound = map.containsKey("usePlaySound") ? Modchu_CastHelper.Boolean(map.get("usePlaySound")) : usePlaySound;
 				if (Modchu_Main.getMinecraftVersion() < 170) {
-					actionIndicatingRodID = Modchu_CastHelper.Int(Modchu_Config.loadConfig(mainCfgfile, "actionIndicatingRodID", actionIndicatingRodID));
-					actionIndicatingWhistleID = Modchu_CastHelper.Int(Modchu_Config.loadConfig(mainCfgfile, "actionIndicatingWhistleID", actionIndicatingWhistleID));
+					actionIndicatingRodID = map.containsKey("actionIndicatingRodID") ? Modchu_CastHelper.Int(map.get("actionIndicatingRodID")) : actionIndicatingRodID;
+					actionIndicatingWhistleID = map.containsKey("actionIndicatingWhistleID") ? Modchu_CastHelper.Int(map.get("actionIndicatingWhistleID")) : actionIndicatingWhistleID;
 				}
 				cfgMaxMinCheck();
 				String k[] = {
